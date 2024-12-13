@@ -7,6 +7,9 @@ import java.util.List;
 
 public class EmployeeStack {
 
+    private static final int FIRST_INDEX = 0;
+    private static final int SECOND_INDEX = 1;
+
     private final List<Employee> employees;
     private final LinkedList<Employee> stack;
 
@@ -19,7 +22,11 @@ public class EmployeeStack {
         return new EmployeeStack(employeeList);
     }
 
-    public Employee pop() {
+    public Employee getFirst() {
+        return stack.get(FIRST_INDEX);
+    }
+
+    public Employee popFirst() {
         Employee firstEmployee = stack.pop();
         restoreStackIfEmpty();
 
@@ -27,7 +34,7 @@ public class EmployeeStack {
     }
 
     public Employee popSecond() {
-        Employee secondEmployee = stack.get(1);
+        Employee secondEmployee = stack.get(SECOND_INDEX);
         stack.remove(1);
         restoreStackIfEmpty();
 

@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 
 public class OnCallOrder {
+    public static final String ON_CALL_ORDER_SUMMARY_FORMAT = "%d월 %d일 %s %s";
+
     private final List<Employee> onCallOrder;
 
     private OnCallOrder(List<Employee> onCallOrder) {

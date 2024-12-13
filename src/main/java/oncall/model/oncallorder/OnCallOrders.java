@@ -9,10 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OnCallOrders {
-    private static final String ON_CALL_ORDER_SUMMARY_FORMAT = "%d월 %d일 %s %s";
 
-    private final OnCallOrder weekdayOrder;
-    private final OnCallOrder weekendOrder;
     private final EmployeeStack weekdayEmployeeStack;
     private final EmployeeStack weekendEmployeeStack;
 
@@ -20,11 +17,8 @@ public class OnCallOrders {
         if (!weekdayOrder.hasEqualParticipantsTo(weekEndOrder)) {
             throw new IllegalArgumentException(ErrorCode.PARTICIPANTS_NOT_IDENTICAL.getMessage());
         }
-
-        this.weekdayOrder = weekdayOrder;
-        this.weekendOrder = weekEndOrder;
         this.weekdayEmployeeStack = EmployeeStack.from(weekdayOrder.getOnCallOrder());
-        this.weekendEmployeeStack = EmployeeStack.from(weekendOrder.getOnCallOrder());
+        this.weekendEmployeeStack = EmployeeStack.from(weekEndOrder.getOnCallOrder());
     }
 
     public static OnCallOrders of(OnCallOrder weekdayOrder, OnCallOrder weekEndOrder) {
@@ -32,26 +26,38 @@ public class OnCallOrders {
     }
 
     public List<String> generateMonthlyOnCallOrder(Month month, Day day) {
-
         List<String> monthlyOnCallOrder = new ArrayList<>();
-        int maxDays = month.getMaxDays();
+        String previousNickname = "";
 
-        for (int dayNumber = 1; dayNumber <= maxDays; dayNumber++) {
-
-            String nickname = getNameFromStack(month, dayNumber, day);
-
-            monthlyOnCallOrder.add(String.format(ON_CALL_ORDER_SUMMARY_FORMAT, month.getNumber(), dayNumber, day.getName(), nickname));
+        for (int dayNumber = 1; dayNumber <= month.getMaxDays(); dayNumber++) {
+            String currentNickname = popFromStack(month, dayNumber, day, previousNickname);
+            monthlyOnCallOrder.add(String.format(
+                    OnCallOrder.ON_CALL_ORDER_SUMMARY_FORMAT,
+                    month.getNumber(),
+                    dayNumber,
+                    day.getName(),
+                    currentNickname));
+            previousNickname = currentNickname;
             day = day.getNextDay();
         }
 
         return monthlyOnCallOrder;
     }
 
-    private String getNameFromStack(Month month, int dayNumber, Day day) {
-        if (month.isExtraHoliday(dayNumber) || day.isWeekend()) {
-            return weekendEmployeeStack.pop().getNickname();
+    private String popFromStack(Month month, int dayNumber, Day day, String previousNickname) {
+        EmployeeStack stack = getAppropriateStack(month, dayNumber, day);
+        String nickname = stack.getFirst().getNickname();
+
+        if (nickname.equals(previousNickname)) {
+            return stack.popSecond().getNickname();
         }
-        return weekdayEmployeeStack.pop().getNickname();
+        return stack.popFirst().getNickname();
     }
 
+    private EmployeeStack getAppropriateStack(Month month, int dayNumber, Day day) {
+        if (month.isExtraHoliday(dayNumber) || day.isWeekend()) {
+            return weekendEmployeeStack;
+        }
+        return weekdayEmployeeStack;
+    }
 }
