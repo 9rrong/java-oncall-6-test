@@ -1,5 +1,8 @@
 package oncall.model.employee;
 
+import oncall.model.ErrorCode;
+
+import java.util.HashSet;
 import java.util.List;
 
 public class Employees {
@@ -10,11 +13,18 @@ public class Employees {
     }
 
     public static Employees ofValue(List<String> nicknames) {
+        checkDuplicate(nicknames);
+
         return new Employees(
                 nicknames.stream()
                         .map(Employee::ofValue)
                         .toList()
         );
+    }
 
+    private static void checkDuplicate(List<String> nicknames) {
+        if (nicknames.size() != new HashSet<>(nicknames).size()) {
+            throw new IllegalArgumentException(ErrorCode.EMPLOYEE_NICKNAME_DUPLICATED.getMessage());
+        }
     }
 }
