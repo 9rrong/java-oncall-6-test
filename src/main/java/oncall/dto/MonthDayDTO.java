@@ -1,9 +1,10 @@
 package oncall.dto;
 
 import oncall.model.Day;
+import oncall.model.Month;
 
 public record MonthDayDTO(
-        int month,
+        Month month,
         Day day
 ) {
 }
