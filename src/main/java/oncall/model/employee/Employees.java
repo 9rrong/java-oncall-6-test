@@ -14,6 +14,7 @@ public class Employees {
 
     public static Employees ofValue(List<String> nicknames) {
         checkDuplicate(nicknames);
+        checkCountInRange(nicknames);
 
         return new Employees(
                 nicknames.stream()
@@ -25,6 +26,12 @@ public class Employees {
     private static void checkDuplicate(List<String> nicknames) {
         if (nicknames.size() != new HashSet<>(nicknames).size()) {
             throw new IllegalArgumentException(ErrorCode.EMPLOYEE_NICKNAME_DUPLICATED.getMessage());
+        }
+    }
+
+    private static void checkCountInRange(List<String> nicknames) {
+        if (nicknames.size() < 5 || 35 < nicknames.size()) {
+            throw new IllegalArgumentException(ErrorCode.EMPLOYEE_COUNT_OUT_OF_RANGE.getMessage());
         }
     }
 }
