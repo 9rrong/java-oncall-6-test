@@ -13,8 +13,12 @@ public class Employee {
         this.nickname = nickname;
     }
 
-    public static Employee ofValue(String nickname) {
+    public static Employee valueOf(String nickname) {
         return new Employee(nickname);
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 
     private void validateLength(String value) {
@@ -22,6 +26,4 @@ public class Employee {
             throw new IllegalArgumentException(ErrorCode.EMPLOYEE_NICKNAME_LENGTH_OUT_OF_RANGE.getMessage());
         }
     }
-
-
 }
