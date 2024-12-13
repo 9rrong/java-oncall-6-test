@@ -1,7 +1,7 @@
 package oncall.model.oncallorder;
 
-import oncall.model.ErrorCode;
-import oncall.model.employee.Employee;
+import oncall.model.enums.ErrorCode;
+import oncall.model.Employee;
 
 import java.util.HashSet;
 import java.util.List;

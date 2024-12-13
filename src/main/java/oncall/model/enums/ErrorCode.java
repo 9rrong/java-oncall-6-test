@@ -1,4 +1,4 @@
-package oncall.model;
+package oncall.model.enums;
 
 public enum ErrorCode {
     DAY_NOT_FOUND("잘못된 요일 입력입니다. 다시 입력해 주세요."),

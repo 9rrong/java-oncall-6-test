@@ -1,4 +1,4 @@
-package oncall.model;
+package oncall.model.enums;
 
 import java.util.Arrays;
 import java.util.List;

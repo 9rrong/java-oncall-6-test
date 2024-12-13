@@ -1,7 +1,7 @@
 package oncall.model.oncallorder;
 
-import oncall.model.Day;
-import oncall.model.Month;
+import oncall.model.enums.Day;
+import oncall.model.enums.Month;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

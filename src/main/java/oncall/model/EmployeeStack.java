@@ -1,7 +1,5 @@
 package oncall.model;
 
-import oncall.model.employee.Employee;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,12 +8,12 @@ public class EmployeeStack {
     private static final int FIRST_INDEX = 0;
     private static final int SECOND_INDEX = 1;
 
-    private final List<Employee> employees;
+    private final List<Employee> onCallOrder;
     private final LinkedList<Employee> stack;
 
-    private EmployeeStack(List<Employee> employees) {
-        this.employees = employees;
-        this.stack = new LinkedList<Employee>(employees);
+    private EmployeeStack(List<Employee> onCallOrder) {
+        this.onCallOrder = onCallOrder;
+        this.stack = new LinkedList<Employee>(onCallOrder);
     }
 
     public static EmployeeStack from(List<Employee> employeeList) {
@@ -43,7 +41,7 @@ public class EmployeeStack {
 
     private void restoreStackIfEmpty() {
         if (stack.isEmpty()) {
-            stack.addAll(employees);
+            stack.addAll(onCallOrder);
         }
     }
 }

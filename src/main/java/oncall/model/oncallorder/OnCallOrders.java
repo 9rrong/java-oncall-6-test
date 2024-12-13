@@ -1,9 +1,9 @@
 package oncall.model.oncallorder;
 
-import oncall.model.Day;
+import oncall.model.enums.Day;
 import oncall.model.EmployeeStack;
-import oncall.model.ErrorCode;
-import oncall.model.Month;
+import oncall.model.enums.ErrorCode;
+import oncall.model.enums.Month;
 
 import java.util.ArrayList;
 import java.util.List;

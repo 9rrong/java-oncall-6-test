@@ -1,6 +1,6 @@
-package oncall.model.employee;
+package oncall.model;
 
-import oncall.model.ErrorCode;
+import oncall.model.enums.ErrorCode;
 
 public class Employee {
 

@@ -1,7 +1,7 @@
 package oncall.dto;
 
-import oncall.model.Day;
-import oncall.model.Month;
+import oncall.model.enums.Day;
+import oncall.model.enums.Month;
 
 public record MonthDayDTO(
         Month month,
