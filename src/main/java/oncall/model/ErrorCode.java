@@ -6,6 +6,7 @@ public enum ErrorCode {
     EMPLOYEE_NICKNAME_LENGTH_OUT_OF_RANGE("유효하지 않은 입력 값입니다. 다시 입력해 주세요."),
     EMPLOYEE_NICKNAME_DUPLICATED("유효하지 않은 입력 값입니다. 다시 입력해 주세요."),
     EMPLOYEE_COUNT_OUT_OF_RANGE("유효하지 않은 입력 값입니다. 다시 입력해 주세요."),
+    PARTICIPANTS_NOT_IDENTICAL("평일과 휴일의 구성원이 다릅니다. 다시 입력해 주세요."),
     INVALID_INPUT("유효하지 않은 입력 값입니다. 다시 입력해 주세요.");
 
 

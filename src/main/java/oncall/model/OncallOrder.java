@@ -1,26 +1,30 @@
-package oncall.model.employee;
+package oncall.model;
 
-import oncall.model.ErrorCode;
+import oncall.model.employee.Employee;
 
 import java.util.HashSet;
 import java.util.List;
 
-public class Employees {
+public class OncallOrder {
     private final List<Employee> employees;
 
-    private Employees(List<Employee> employees) {
+    private OncallOrder(List<Employee> employees) {
         this.employees = employees;
     }
 
-    public static Employees ofValue(List<String> nicknames) {
+    public static OncallOrder ofValue(List<String> nicknames) {
         checkDuplicate(nicknames);
         checkCountInRange(nicknames);
 
-        return new Employees(
+        return new OncallOrder(
                 nicknames.stream()
                         .map(Employee::ofValue)
                         .toList()
         );
+    }
+
+    public boolean hasEqualParticipantsTo(OncallOrder oncallOrder) {
+        return new HashSet<>(employees).equals(new HashSet<>(oncallOrder.employees));
     }
 
     private static void checkDuplicate(List<String> nicknames) {

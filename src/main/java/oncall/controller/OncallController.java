@@ -1,8 +1,9 @@
 package oncall.controller;
 
 import oncall.dto.MonthDayDTO;
-import oncall.dto.OncallOrderDTO;
 import oncall.model.InputParser;
+import oncall.model.OncallOrder;
+import oncall.model.OncallOrders;
 import oncall.view.InputView;
 import oncall.view.OutputView;
 
@@ -20,10 +21,10 @@ public class OncallController {
 
     public void run() {
         MonthDayDTO monthDayDTO = retryUntilValid(() -> InputParser.parseMonthDay(inputView.askMonthAndDay()));
-        OncallOrderDTO oncallOrderDTO = retryUntilValid(() ->
-                new OncallOrderDTO(
-                        InputParser.parseOncallOrder(inputView.askWeekdayOncallOrder()),
-                        InputParser.parseOncallOrder(inputView.askWeekendOncallOrder())
+        OncallOrders oncallOrders = retryUntilValid(() ->
+                OncallOrders.ofValue(
+                        OncallOrder.ofValue(InputParser.parseOncallOrder(inputView.askWeekdayOncallOrder())),
+                        OncallOrder.ofValue(InputParser.parseOncallOrder(inputView.askWeekendOncallOrder()))
                 )
         );
     }
