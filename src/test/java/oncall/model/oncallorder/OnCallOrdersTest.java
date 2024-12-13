@@ -22,4 +22,14 @@ class OnCallOrdersTest {
 
     }
 
+    @Test
+    void 평일이면서_법정공휴일인_경우_휴일_표기테스트() {
+        OnCallOrder weekdayOrder = OnCallOrder.from(List.of("영", "일", "이", "삼", "사"));
+        OnCallOrder weekendOrder = OnCallOrder.from(List.of("사", "삼", "이", "일", "영"));
+        OnCallOrders onCallOrders = OnCallOrders.of(weekdayOrder, weekendOrder);
+
+        assertThat(onCallOrders.generateMonthlyOnCallOrder(Month.JANUARY, Day.MONDAY))
+                .contains("1월 1일 월(휴일) 사", "1월 2일 화 영", "1월 3일 수 일");
+    }
+
 }

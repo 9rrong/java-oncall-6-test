@@ -10,6 +10,7 @@ import java.util.List;
 
 public class OnCallOrders {
 
+    public static final String INORDINARY_HOLIDAY_MARK = "(휴일)";
     private final EmployeeStack weekdayEmployeeStack;
     private final EmployeeStack weekendEmployeeStack;
 
@@ -31,17 +32,25 @@ public class OnCallOrders {
 
         for (int dayNumber = 1; dayNumber <= month.getMaxDays(); dayNumber++) {
             String currentNickname = popFromStack(month, dayNumber, day, previousNickname);
+            String dayExpression = getAppropriateDayExpression(month, dayNumber, day);
             monthlyOnCallOrder.add(String.format(
                     OnCallOrder.ON_CALL_ORDER_SUMMARY_FORMAT,
                     month.getNumber(),
                     dayNumber,
-                    day.getName(),
+                    dayExpression,
                     currentNickname));
             previousNickname = currentNickname;
             day = day.getNextDay();
         }
 
         return monthlyOnCallOrder;
+    }
+
+    private String getAppropriateDayExpression(Month month, int dayNumber, Day day) {
+        if (month.isExtraHoliday(dayNumber) && !day.isWeekend()) {
+            return day.getName() + INORDINARY_HOLIDAY_MARK;
+        }
+        return day.getName();
     }
 
     private String popFromStack(Month month, int dayNumber, Day day, String previousNickname) {
