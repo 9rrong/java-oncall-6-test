@@ -1,13 +1,12 @@
 package oncall.controller;
 
+import java.util.function.Supplier;
 import oncall.dto.MonthDayDTO;
 import oncall.model.InputParser;
 import oncall.model.oncallorder.OnCallOrder;
 import oncall.model.oncallorder.OnCallOrders;
 import oncall.view.InputView;
 import oncall.view.OutputView;
-
-import java.util.function.Supplier;
 
 public class OnCallController {
 

@@ -4,7 +4,7 @@ import oncall.model.enums.ErrorCode;
 
 public class Employee {
 
-    public static final int NICKNAME_MAX_LENGTH = 5;
+    private static final int NICKNAME_MAX_LENGTH = 5;
 
     private final String nickname;
 

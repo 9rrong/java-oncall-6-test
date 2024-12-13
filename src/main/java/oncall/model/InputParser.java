@@ -1,25 +1,25 @@
 package oncall.model;
 
-import oncall.dto.MonthDayDTO;
-import oncall.model.enums.Day;
-import oncall.model.enums.ErrorCode;
-import oncall.model.enums.Month;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import oncall.dto.MonthDayDTO;
+import oncall.model.enums.Day;
+import oncall.model.enums.ErrorCode;
+import oncall.model.enums.Month;
 
 public class InputParser {
     private static final String INPUT_DELIMITER = ",";
-    private static final String MONTH_DAY_REGEX = "([0-9]+)" + INPUT_DELIMITER + "([가-힣]+)";
-    private static final String ON_CALL_ORDER_REGEX = "[가-힣]+" + "(?:" + INPUT_DELIMITER + "[가-힣]+)*";
+    public static final Pattern MONTH_DAY_PATTERN = Pattern.compile("([0-9]+)" + INPUT_DELIMITER + "([가-힣]+)");
+    public static final Pattern ON_CALL_ORDER_PATTERN = Pattern.compile(
+            "[가-힣]+" + "(?:" + INPUT_DELIMITER + "[가-힣]+)*");
     private static final int INPUT_MONTH_INDEX = 1;
     private static final int INPUT_DAY_INDEX = 2;
 
     public static MonthDayDTO parseMonthDay(String input) {
-        Matcher matcher = Pattern.compile(MONTH_DAY_REGEX).matcher(input);
+        Matcher matcher = MONTH_DAY_PATTERN.matcher(input);
 
         if (!matcher.matches()) {
             throw new IllegalArgumentException(ErrorCode.INVALID_INPUT.getMessage());
@@ -42,7 +42,7 @@ public class InputParser {
     }
 
     private static void validateOnCallInputSyntax(String input) {
-        Matcher matcher = Pattern.compile(ON_CALL_ORDER_REGEX).matcher(input);
+        Matcher matcher = ON_CALL_ORDER_PATTERN.matcher(input);
 
         if (!matcher.matches()) {
             throw new IllegalArgumentException(ErrorCode.INVALID_INPUT.getMessage());

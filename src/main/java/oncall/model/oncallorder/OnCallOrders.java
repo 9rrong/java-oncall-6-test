@@ -1,12 +1,11 @@
 package oncall.model.oncallorder;
 
-import oncall.model.enums.Day;
-import oncall.model.EmployeeStack;
-import oncall.model.enums.ErrorCode;
-import oncall.model.enums.Month;
-
 import java.util.ArrayList;
 import java.util.List;
+import oncall.model.EmployeeStack;
+import oncall.model.enums.Day;
+import oncall.model.enums.ErrorCode;
+import oncall.model.enums.Month;
 
 public class OnCallOrders {
 
@@ -33,12 +32,8 @@ public class OnCallOrders {
         for (int dayNumber = 1; dayNumber <= month.getMaxDays(); dayNumber++) {
             String currentNickname = popFromStack(month, dayNumber, day, previousNickname);
             String dayExpression = getAppropriateDayExpression(month, dayNumber, day);
-            monthlyOnCallOrder.add(String.format(
-                    OnCallOrder.ON_CALL_ORDER_SUMMARY_FORMAT,
-                    month.getNumber(),
-                    dayNumber,
-                    dayExpression,
-                    currentNickname));
+            monthlyOnCallOrder.add(String.format(OnCallOrder.ON_CALL_ORDER_SUMMARY_FORMAT, month.getNumber(),
+                    dayNumber, dayExpression, currentNickname));
             previousNickname = currentNickname;
             day = day.getNextDay();
         }

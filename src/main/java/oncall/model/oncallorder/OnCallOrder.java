@@ -1,10 +1,9 @@
 package oncall.model.oncallorder;
 
-import oncall.model.enums.ErrorCode;
-import oncall.model.Employee;
-
 import java.util.HashSet;
 import java.util.List;
+import oncall.model.Employee;
+import oncall.model.enums.ErrorCode;
 
 public class OnCallOrder {
     public static final String ON_CALL_ORDER_SUMMARY_FORMAT = "%d월 %d일 %s %s";
