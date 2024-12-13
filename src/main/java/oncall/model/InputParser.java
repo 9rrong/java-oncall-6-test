@@ -2,6 +2,7 @@ package oncall.model;
 
 import oncall.dto.MonthDayDTO;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,6 +10,8 @@ public class InputParser {
     private static final String INPUT_DELIMITER = ",";
     private static final String MONTH_DAY_REGEX = "([0-9]+)" + INPUT_DELIMITER + "([가-힣]+)";
     private static final Pattern MONTH_DAY_PATTERN = Pattern.compile(MONTH_DAY_REGEX);
+    private static final String ONCALL_ORDER_REGEX = "[가-힣]+" + INPUT_DELIMITER + "(?:[가-힣]+)*";
+    private static final Pattern ONCALL_ORDER_PATTERN = Pattern.compile(ONCALL_ORDER_REGEX);
     private static final int INPUT_MONTH_INDEX = 1;
     private static final int INPUT_DAY_INDEX = 2;
 
@@ -23,6 +26,24 @@ public class InputParser {
         Day day = parseDay(matcher);
 
         return new MonthDayDTO(month, day);
+    }
+
+    public static List<String> parseOncallOrder(String input) {
+        validateOncallInputSyntax(input);
+
+        return splitOncallOrder(input);
+    }
+
+    private static List<String> splitOncallOrder(String input) {
+        return List.of(input.split(INPUT_DELIMITER));
+    }
+
+    private static void validateOncallInputSyntax(String input) {
+        Matcher matcher = ONCALL_ORDER_PATTERN.matcher(input);
+
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException(ErrorCode.INVALID_INPUT.getMessage());
+        }
     }
 
     private static Month parseMonth(Matcher matcher) {

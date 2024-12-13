@@ -5,6 +5,7 @@ import oncall.model.InputParser;
 import oncall.view.InputView;
 import oncall.view.OutputView;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class OncallController {
@@ -19,6 +20,8 @@ public class OncallController {
 
     public void run() {
         MonthDayDTO monthDayDTO = retryUntilValid(() -> InputParser.parseMonthDay(inputView.askMonthAndDay()));
+        List<String> weekdayOncallOrder = retryUntilValid(() -> InputParser.parseOncallOrder(inputView.askOncallOrder()));
+
 
     }
 
